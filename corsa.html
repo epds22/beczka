@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORSO na parkingu DACO</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 0;
+        }
+
+        #countdown {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .digit-box {
+            background: #222;
+            border-radius: 10px;
+            padding: 20px;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #00ffcc;
+            width: 80px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 255, 204, 0.2);
+        }
+
+        .label {
+            font-size: 1rem;
+            color: #ff6600;
+            margin-top: 5px;
+        }
+
+        .digit-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #ryszard {
+            margin-top: 30px;
+            font-size: 1.5rem;
+            color: #fff;
+        }
+
+        #amount {
+            font-size: 2rem;
+            color: #ff6600;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Jak długo <span class="highlight">CORSA</span> czeka na parkingu <span class="highlight">DACO?</span></h1>
+    <div id="countdown">
+        <div class="digit-container">
+            <div class="digit-box" id="days">--</div>
+            <div class="label">dni</div>
+        </div>
+        <div class="digit-container">
+            <div class="digit-box" id="hours">--</div>
+            <div class="label">godz.</div>
+        </div>
+        <div class="digit-container">
+            <div class="digit-box" id="minutes">--</div>
+            <div class="label">min.</div>
+        </div>
+        <div class="digit-container">
+            <div class="digit-box" id="seconds">--</div>
+            <div class="label">sek.</div>
+        </div>
+    </div>
+
+    <div id="ryszard">
+        Ile Ryszard wisi za parking? <span id="amount">0.00 PLN</span>
+    </div>
+
+    <script>
+        function calculateTimeElapsed() {
+            const startDate = new Date('2024-12-01T00:00:00');
+            const now = new Date();
+            const diff = now - startDate;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = days.toString().padStart(2, '0');
+            document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
+
+            const totalHours = Math.floor(diff / (1000 * 60 * 60));
+            const amountDue = (totalHours * 2).toFixed(2);
+            document.getElementById('amount').innerText = `${amountDue} PLN`;
+        }
+
+        setInterval(calculateTimeElapsed, 1000);
+    </script>
+</body>
+</html>
